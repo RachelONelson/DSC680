@@ -1,0 +1,67 @@
+---
+title: "Project 1 - Animal Crossing"
+author: "Rachel Nelson"
+date: "12/12/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+library(forecast)
+library(nnet)
+library(randomForest)
+library(rpart)
+library(earth)
+library(performance)
+library(see)
+library(rpart.plot)
+library(patchwork)
+
+```
+
+## Importing data sets
+
+
+```{r cars}
+df <- read.csv("D:/College/DSC680/Project 1/df_ordinal.csv")
+df2 <- read.csv("D:/College/DSC680/Project 1/df_dummy.csv")
+```
+
+## Regression Models
+
+Regression using ordinal encoded data set
+```{r model1, echo=FALSE}
+	
+reg <- lm(formula = Tier ~ Species + Gender + Personality + Hobby + Style1 + Style2 + Color1 + Color2, data = df)
+
+# Model Performance
+print(reg)
+r2(reg)
+model_performance(reg)
+
+#Visualization of model checks
+check_model(reg)
+```
+
+
+
+Regression using dummy encoded data set
+```{r model2, echo=FALSE}
+	
+reg2 <- lm(formula = Tier_x ~ Species_Alligator + Species_Anteater + Species_Bear + Species_Bird + Species_Bull + Species_Cat + Species_Chicken + Species_Cow + Species_Cub + Species_Deer + Species_Dog + Species_Duck + Species_Eagle + Species_Elephant + Species_Frog + Species_Goat + Species_Gorilla + Species_Hamster + Species_Hippo + Species_Horse + Species_Kangaroo + Species_Koala + Species_Lion + Species_Monkey + Species_Mouse + Species_Octopus + Species_Ostrich + Species_Penguin + Species_Pig + Species_Rabbit + Species_Rhino +     Species_Sheep + Species_Squirrel + Species_Tiger + Species_Wolf + Gender_Female + Gender_Male + Personality_Big.Sister + Personality_Cranky + Personality_Jock + Personality_Lazy + Personality_Normal + Personality_Peppy + Personality_Smug + Personality_Snooty + Hobby_Education + Hobby_Fashion + Hobby_Fitness + Hobby_Music + Hobby_Nature + Hobby_Play + Style.1_Active + Style.1_Cool + Style.1_Cute + Style.1_Elegant + Style.1_Gorgeous + Style.1_Simple + Style.2_Active + Style.2_Cool + Style.2_Cute +     Style.2_Elegant + Style.2_Gorgeous + Style.2_Simple + Color.1_Beige + Color.1_Black + Color.1_Blue + Color.1_Brown + Color.1_Colorful + Color.1_Gray + Color.1_Green + Color.1_Light.blue + Color.1_Orange + Color.1_Pink + Color.1_Purple + Color.1_Red + Color.1_White + Color.1_Yellow + Color.2_Beige + Color.2_Black + Color.2_Blue + Color.2_Brown + Color.2_Colorful + Color.2_Gray + Color.2_Green + Color.2_Light.blue + Color.2_Orange + Color.2_Pink + Color.2_Purple + Color.2_Red + Color.2_White +     Color.2_Yellow + Species + Gender + Personality + Hobby + Style.1 + Style.2 + Color.1 + Color.2, data = df2)
+
+# Model Performance
+print(reg2)
+r2(reg2)
+model_performance(reg2)
+
+#Visualization of model checks
+check_model(reg2)
+```
+# Compare Performance
+
+```{r compare, echo=FALSE}
+	
+compare_performance(reg, reg2)
+```
