@@ -1,0 +1,46 @@
+---
+title: "Project 1 - Animal Crossing"
+author: "Rachel Nelson"
+date: "12/12/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+library(forecast)
+library(nnet)
+library(randomForest)
+library(rpart)
+library(earth)
+library(performance)
+library(see)
+library(rpart.plot)
+library(patchwork)
+library(rpart)
+library(randomForest)
+library(cluster)
+library(RColorBrewer)
+library(rattle)
+```
+
+## Importing data sets
+
+
+```{r cars}
+df <- read.csv("D:/College/DSC680/Project 1/df_ordinal.csv")
+df2 <- read.csv("D:/College/DSC680/Project 1/df_dummy.csv")
+```
+
+## Clustering Models
+
+```{r compare, echo=FALSE}
+### Decision Tree (basic)
+train<-read.csv("D:/College/DSC680/Project 1/df_dummy.csv", header=FALSE)
+y<-as.factor(train[,2])
+x<-train[,3:92]
+fit<-rpart(y~.,x)
+sum(y!=predict(fit,x,type="class"))/length(y)
+fancyRpartPlot(fit)
+fit
+```
