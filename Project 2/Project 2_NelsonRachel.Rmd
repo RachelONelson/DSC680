@@ -1,0 +1,68 @@
+---
+title: "Project 2"
+author: "Rachel Nelson"
+date: "1/23/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+library(forecast)
+library(nnet)
+library(randomForest)
+library(rpart)
+library(earth)
+library(performance)
+library(see)
+library(rpart.plot)
+library(patchwork)
+library(rpart)
+library(randomForest)
+library(cluster)
+library(RColorBrewer)
+library(rattle)
+```
+
+## R Markdown
+
+```{r df}
+df <- read.csv("D:/College/DSC680/Project 2/df_dummy.csv")
+```
+
+## Classification Algorithms
+
+```{r dtree, echo=FALSE}
+### Decision Tree (basic)
+### Decision Tree (basic)
+train<-read.csv("D:/College/DSC680/Project 2/df_dummy.csv", header=TRUE)
+y<-as.factor(train[,2])
+x<-train[,3:92]
+fit<-rpart(y~.,x)
+sum(y!=predict(fit,x,type="class"))/length(y)
+fancyRpartPlot(fit)
+fit
+```
+
+
+```{r regression, echo=FALSE}
+### Regression
+train<-read.csv("D:/College/DSC680/Project 2/df_dummy.csv", header=TRUE)
+y<-as.factor(train[,2])
+x<-train[,3:92]
+fit<-rpart(y~.,x)
+sum(y!=predict(fit,x,type="class"))/length(y)
+fancyRpartPlot(fit)
+fit
+```
+
+```{r NaiveBayes, echo=FALSE}
+### Naive Bayes
+train<-read.csv("D:/College/DSC680/Project 2/df_dummy.csv", header=TRUE)
+y<-as.factor(train[,2])
+x<-train[,3:92]
+fit<-rpart(y~.,x)
+sum(y!=predict(fit,x,type="class"))/length(y)
+fancyRpartPlot(fit)
+fit
+```
